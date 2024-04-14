@@ -1,5 +1,5 @@
 `include "defines.v"
-module sysArray(
+module tt_um_haoyang_systolicarray(
     input wire clk,
     input wire rst,
     input conf,
