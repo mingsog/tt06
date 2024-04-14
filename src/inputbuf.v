@@ -15,6 +15,7 @@ module inputbuf(
 reg[2:0] cnt;
 reg cnt0;
 assign ready = (cnt[2]==1'b1)&(cnt0==0);
+assign data_clip = (data_in == 3)? 2 : data_in;
 
 always @(posedge clk) begin
     if (rst==`RstEnable) begin
@@ -38,31 +39,31 @@ always @(posedge clk) begin
     end else if (valid==1'b1) begin
         case (cnt)
             3'b000:begin
-                data1 <= data_in;
+                data1 <= data_clip;
                 data2 <= data2;
                 data3 <= data3;
                 data4 <= data4;     
             end
             3'b001:begin
                 data1 <= data1;
-                data2 <= data_in;
+                data2 <= data_clip;
                 data3 <= data3;
                 data4 <= data4;
             end
             3'b010:begin
                 data1 <= data1;
                 data2 <= data2;
-                data3 <= data_in;
+                data3 <= data_clip;
                 data4 <= data4;                
             end
             3'b011:begin
                 data1 <= data1;
                 data2 <= data2;
                 data3 <= data3;
-                data4 <= data_in;
+                data4 <= data_clip;
             end
             3'b100:begin
-                data1 <= data_in;
+                data1 <= data_clip;
                 data2 <= data2;
                 data3 <= data3;
                 data4 <= data4; 

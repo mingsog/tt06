@@ -1,29 +1,28 @@
 `include "defines.v"
 module tt_um_haoyang_systolicarray(
-    input wire clk,
-    input wire rst,
-    input conf,
-    input wire[3:0] rin,
-    input wire[3:0] cin,
-    //display one line of the result each time
-    output wire[6:0] segout0,
-    output wire[6:0] segout1,
-    output wire[6:0] segout2,
-    output wire[6:0] segout3,
-    output reg start, // light every calculate    
-    output wire on // light when turn on
+
+    input  wire [7:0] ui_in,	// Dedicated inputs
+	output wire [7:0] uo_out,	// Dedicated outputs
+	input  wire [7:0] uio_in,	// IOs: Input path
+	output wire [7:0] uio_out,	// IOs: Output path
+	output wire [7:0] uio_oe,	// IOs: Enable path (active high: 0=input, 1=output)
+	input  wire       ena,
+	input  wire       clk,
+	input  wire       rst
     );
 
-    wire [`DATABUS] key_data;
+    assign uio_oe = 8'hff;
+
+    wire conf;
     wire key_valid;
-    keyboard kb(
-        .clk(clk),
-        .rst(rst),
-        .rowin(rin),
-        .colin(cin),
-        .data(key_data),
-        .valid(key_valid)
-    );
+    wire [`DATABUS] key_data;
+    assign conf         =   ui_in[0];
+    assign key_valid    =   ui_in[1];
+    assign key_data     =   ui_in[3:2];
+
+    assign uo_out       =  {mm_res0, mm_res1};
+    assign uio_out      =  {mm_res2, mm_res3};
+
 
     wire[`DATABUS] buf_data1;
     wire[`DATABUS] buf_data2;
@@ -61,23 +60,6 @@ module tt_um_haoyang_systolicarray(
         .result3(mm_res3)
     );
 
-    segment seg0(.num_in(mm_res0[3:0]),.seg_display(segout0));
-    segment seg1(.num_in(mm_res1[3:0]),.seg_display(segout1));
-    segment seg2(.num_in(mm_res2[3:0]),.seg_display(segout2));
-    segment seg3(.num_in(mm_res3[3:0]),.seg_display(segout3));
-    
-    assign on = 1'b1;
-    always @(posedge clk) begin
-        if(rst==`RstEnable) begin
-            start<=1'b0;
-        end
-        else if(start!=buf_ready)begin
-            start<=~start;
-        end
-        else begin
-            start<=start;
-        end
-    end
     
 
 endmodule
