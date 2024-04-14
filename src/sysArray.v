@@ -8,7 +8,7 @@ module tt_um_haoyang_systolicarray(
 	output wire [7:0] uio_oe,	// IOs: Enable path (active high: 0=input, 1=output)
 	input  wire       ena,
 	input  wire       clk,
-	input  wire       rst
+	input  wire       rst_n
     );
 
     assign uio_oe = 8'hff;
@@ -31,7 +31,7 @@ module tt_um_haoyang_systolicarray(
     wire buf_ready;
     inputbuf buf0(
         .clk(clk),
-        .rst(rst),
+        .rst(rst_n),
         .data_in(key_data),
         .valid(key_valid),
         .ready(buf_ready),
@@ -47,7 +47,7 @@ module tt_um_haoyang_systolicarray(
     wire[`RESBUS] mm_res3;
     MatrixMultiplier mm(
         .clk(clk),
-        .rst(rst),
+        .rst(rst_n),
         .start(buf_ready),
         .conf(conf),
         .data_in0(buf_data1),
