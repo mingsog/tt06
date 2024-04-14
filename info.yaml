@@ -1,38 +1,25 @@
 # Tiny Tapeout project information
 project:
-  title:        "TinyTapeout 06 Factory Test_HZ"      # Project title
+  title:        "TinyTapeout 06 SA_HZ"      # Project title
   author:       "Haoyang Zhang"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "Factory test module"      # One line description of what your project does
+  description:  "SA test module"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "2x2"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_haoyang_serv"
+  top_module:  "tt_um_haoyang_systolicarray"
   
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
-    - "top.v"
-    - "blocks/serv_top.v"
-    - "blocks/serv_mem_if.v"
-    - "blocks/serv_rf_if.v"
-    - "blocks/serv_alu.v"
-    - "blocks/serv_ctrl.v"
-    - "blocks/serv_bufreg2.v"
-    - "blocks/serv_bufreg.v"
-    - "blocks/serv_immdec.v"
-    - "blocks/serv_decode.v"
-    - "blocks/serv_state.v"
-    - "blocks/serv_csr.v"
-    - "servant_arbiter.v"
-    - "spi_wb/spi_clgen.v"
-    - "spi_wb/spi_defines.v"
-    - "spi_wb/spi_shift.v"
-    - "spi_wb/spi_top.v"
-
+    - "sysArray.v"
+    - "inputbuf.v"
+    - "MatrixMultiplier.v"
+    - "defines.v"
+    - "PE.v"
 
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
